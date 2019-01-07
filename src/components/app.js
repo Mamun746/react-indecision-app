@@ -3,12 +3,14 @@ import Header from './header'
 import Action from './action'
 import Options from './options'
 import AddOption from './addOptions'
+import OptionModal from './optionModal'
 
 
  class App extends React.Component{
     
     state={
-        options:[]
+        options:[],
+        selectedOption:undefined
     }
 
     componentDidMount(){
@@ -47,7 +49,10 @@ import AddOption from './addOptions'
     handlePick=()=>{
         const randomNum=Math.floor(Math.random()*this.state.options.length)
         const option=this.state.options[randomNum]
-        alert(option)
+        
+        this.setState(()=>({
+            selectedOption:option
+        }))
     }
 
     handleAddOption=(option)=>{
@@ -71,21 +76,33 @@ import AddOption from './addOptions'
         
         
     }
+    clearModal=()=>{
+        this.setState(()=>({
+            selectedOption:undefined
+        }))
+    }
     
     render(){
         return(
-            <div>
+            <div >
             <Header/>
+            <div className="container">
             <Action
              hasOption={this.state.options.length !== null && this.state.options.length >0 }
               handlePick={this.handlePick}
               />
-            <Options 
+              <div className="widget">
+              <Options 
             options={this.state.options}
              handleRemoveAll={this.handleRemoveAll}
              handleDeleteOption={this.handleDeleteOption}
             />
             <AddOption handleAddOption={this.handleAddOption}/>
+              </div>
+            </div>
+            
+
+            <OptionModal selectedOption={this.state.selectedOption} clearModal={this.clearModal}/>
             </div>
         )
     }

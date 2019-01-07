@@ -1,15 +1,12 @@
 import React from 'react'
 
-const Option=(props)=>{
+const Option=(props)=>(
+    <div className="option">
+        <p className="option__text">{props.count}.{props.optionTxt}</p>
+       
+       <button className="button button--link" onClick={(e)=>{props.handleDeleteOption(props.optionTxt)}}> remove </button>
     
-        return(
-            <div>
-               {props.optionTxt}
-               <button onClick={(e)=>{props.handleDeleteOption(props.optionTxt)}}> remove item </button>
-            
-            </div>
-        )
-    
-}
+    </div>
+)
 
 export default Option
